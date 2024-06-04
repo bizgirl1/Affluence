@@ -1,0 +1,56 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+#crm {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+form label {
+    margin: 5px 0;
+}
+
+form input, form select {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    align-self: center;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+#total-sales, #recruitment-total {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
