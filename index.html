@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melaleuca CRM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Melaleuca CRM</h1>
+    <div id="crm">
+        <section id="outreach-messages">
+            <h2>Outreach & Messages Sent</h2>
+            <div id="outside-network">
+                <h3>Outside Network Leads</h3>
+                <form id="outside-network-form">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" name="phone" required>
+
+                    <label for="niche">Niche:</label>
+                    <select name="niche" required>
+                        <option value="friends">Friends</option>
+                        <option value="professionals">Professionals/Entrepreneurship/Career</option>
+                        <option value="pet">Pet/Animal</option>
+                        <option value="health">Health/Fitness</option>
+                        <option value="local-business">Local Business</option>
+                        <option value="family">Family</option>
+                        <option value="hobbies">Hobbies</option>
+                        <option value="trades">Trades People</option>
+                        <option value="volunteer">Volunteer</option>
+                        <option value="church">Church</option>
+                        <option value="neighbors">Neighbors</option>
+                        <option value="technology">Technology</option>
+                        <option value="travel">Travel</option>
+                        <option value="education">Education</option>
+                    </select>
+
+                    <label for="appointment-set">Appointment Set?</label>
+                    <select name="appointment-set" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="waiting">Waiting</option>
+                    </select>
+
+                    <button type="button" onclick="addLead('outside')">Add Outside Network Lead</button>
+                </form>
+            </div>
+            <div id="inside-network">
+                <h3>Inside Network Leads</h3>
+                <form id="inside-network-form">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" name="phone" required>
+
+                    <label for="niche">Niche:</label>
+                    <select name="niche" required>
+                        <option value="friends">Friends</option>
+                        <option value="professionals">Professionals/Entrepreneurship/Career</option>
+                        <option value="pet">Pet/Animal</option>
+                        <option value="health">Health/Fitness</option>
+                        <option value="local-business">Local Business</option>
+                        <option value="family">Family</option>
+                        <option value="hobbies">Hobbies</option>
+                        <option value="trades">Trades People</option>
+                        <option value="volunteer">Volunteer</option>
+                        <option value="church">Church</option>
+                        <option value="neighbors">Neighbors</option>
+                        <option value="technology">Technology</option>
+                        <option value="travel">Travel</option>
+                        <option value="education">Education</option>
+                    </select>
+
+                    <label for="appointment-set">Appointment Set?</label>
+                    <select name="appointment-set" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="waiting">Waiting</option>
+                    </select>
+
+                    <button type="button" onclick="addLead('inside')">Add Inside Network Lead</button>
+                </form>
+            </div>
+            <h3>Waiting Leads</h3>
+            <ul id="waiting-list">
+                <!-- Waiting leads will populate here -->
+            </ul>
+            <h3>Rejected Leads</h3>
+            <ul id="rejected-list">
+                <!-- Rejected leads will populate here -->
+            </ul>
+        </section>
+        <section id="appointments">
+            <h2>Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date Appointment Set</th>
+                        <th>Date of Sales Call</th>
+                        <th>Attended Sales Call</th>
+                    </tr>
+                </thead>
+                <tbody id="appointments-list">
+                    <!-- Appointments will populate here -->
+                </tbody>
+            </table>
+        </section>
+        <section id="sales">
+            <h2>Sales</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Response to Offer</th>
+                        <th>Total Value of Transaction per Month</th>
+                    </tr>
+                </thead>
+                <tbody id="sales-list">
+                    <!-- Sales will populate here -->
+                </tbody>
+            </table>
+            <div id="total-sales">
+                Total Sales Value per Month: $<span id="total-sales-value">0</span>
+            </div>
+        </section>
+        <section id="recruitment">
+            <h2>Recruitment</h2>
+            <form id="recruitment-form">
+                <label for="first-name">First Name:</label>
+                <input type="text" name="first-name" required>
+
+                <label for="last-name">Last Name:</label>
+                <input type="text" name="last-name" required>
+
+                <label for="phone">Phone:</label>
+                <input type="tel" name="phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" required>
+
+                <label for="date-accepted">Date Accepted Offer:</label>
+                <input type="date" name="date-accepted" required>
+
+                <label for="tier">Tier:</label>
+                <input type="text" name="tier" required>
+
+                <label for="inbound-outbound">Inbound/Outbound:</label>
+                <select name="inbound-outbound" required>
+                    <option value="inbound">Inbound</option>
+                    <option value="outbound">Outbound</option>
+                </select>
+
+                <label for="niche">Niche:</label>
+                <select name="niche" required>
+                    <option value="friends">Friends</option>
+                    <option value="professionals">Professionals/Entrepreneurship/Career</option>
+                    <option value="pet">Pet/Animal</option>
+                    <option value="health">Health/Fitness</option>
+                    <option value="local-business">Local Business</option>
+                    <option value="family">Family</option>
+                    <option value="hobbies">Hobbies</option>
+                    <option value="trades">Trades People</option>
+                    <option value="volunteer">Volunteer</option>
+                    <option value="church">Church</option>
+                    <option value="neighbors">Neighbors</option>
+                    <option value="technology">Technology</option>
+                    <option value="travel">Travel</option>
+                    <option value="education">Education</option>
+                </select>
+
+                <label for="recruits">Number of People Recruited:</label>
+                <input type="number" name="recruits" required>
+
+                <label for="percentage">Percentage I Get from Each of Their Conversions:</label>
+                <input type="number" name="percentage" required>
+
+                <label for="monthly-amount">Monthly Dollar Amount from Their Recruits:</label>
+                <input type="number" name="monthly-amount" required>
+
+                <button type="button" onclick="addRecruit()">Add Recruit</button>
+            </form>
+            <h3>Recruitment List</h3>
+            <ul id="recruits-list">
+                <!-- Recruits will populate here -->
+            </ul>
+            <div id="recruitment-total">
+                Total Recruitment Earnings per Month: $<span id="total-recruitment-value">0</span>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
