@@ -4,63 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melaleuca CRM</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1, h2, h3 {
-            text-align: center;
-        }
-
-        #crm {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        form label {
-            margin: 5px 0;
-        }
-
-        form input, form select {
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            align-self: center;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        #total-sales, #recruitment-total {
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Melaleuca CRM</h1>
@@ -99,12 +43,13 @@
 
                     <label for="appointment-set">Appointment Set?</label>
                     <select name="appointment-set" required>
-                        <option value="no">No</option>
                         <option value="yes">Yes</option>
+                        <option value="no">No</option>
                         <option value="waiting">Waiting</option>
                     </select>
+
+                    <button type="button" onclick="addLead('outside')">Add Outside Network Lead</button>
                 </form>
-                <button onclick="addLead('outside')">Add Lead</button>
             </div>
             <div id="inside-network">
                 <h3>Inside Network Leads</h3>
@@ -138,25 +83,22 @@
 
                     <label for="appointment-set">Appointment Set?</label>
                     <select name="appointment-set" required>
-                        <option value="no">No</option>
                         <option value="yes">Yes</option>
+                        <option value="no">No</option>
                         <option value="waiting">Waiting</option>
                     </select>
+
+                    <button type="button" onclick="addLead('inside')">Add Inside Network Lead</button>
                 </form>
-                <button onclick="addLead('inside')">Add Lead</button>
             </div>
-            <div id="waiting-leads">
-                <h3>Waiting Leads</h3>
-                <ul id="waiting-list">
-                    <!-- Waiting leads will populate here -->
-                </ul>
-            </div>
-            <div id="rejected-leads">
-                <h3>Rejected Leads</h3>
-                <ul id="rejected-list">
-                    <!-- Rejected leads will populate here -->
-                </ul>
-            </div>
+            <h3>Waiting Leads</h3>
+            <ul id="waiting-list">
+                <!-- Waiting leads will populate here -->
+            </ul>
+            <h3>Rejected Leads</h3>
+            <ul id="rejected-list">
+                <!-- Rejected leads will populate here -->
+            </ul>
         </section>
         <section id="appointments">
             <h2>Appointments</h2>
@@ -164,9 +106,9 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Date Set</th>
+                        <th>Date Appointment Set</th>
                         <th>Date of Sales Call</th>
-                        <th>Attended</th>
+                        <th>Attended Sales Call</th>
                     </tr>
                 </thead>
                 <tbody id="appointments-list">
@@ -181,7 +123,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Response to Offer</th>
-                        <th>Value per Month</th>
+                        <th>Total Value of Transaction per Month</th>
                     </tr>
                 </thead>
                 <tbody id="sales-list">
@@ -211,7 +153,7 @@
                 <input type="date" name="date-accepted" required>
 
                 <label for="tier">Tier:</label>
-                <input type="number" name="tier" required>
+                <input type="text" name="tier" required>
 
                 <label for="inbound-outbound">Inbound/Outbound:</label>
                 <select name="inbound-outbound" required>
@@ -219,7 +161,7 @@
                     <option value="outbound">Outbound</option>
                 </select>
 
-                <label for="niche">Niche/Category:</label>
+                <label for="niche">Niche:</label>
                 <select name="niche" required>
                     <option value="friends">Friends</option>
                     <option value="professionals">Professionals/Entrepreneurship/Career</option>
@@ -240,152 +182,23 @@
                 <label for="recruits">Number of People Recruited:</label>
                 <input type="number" name="recruits" required>
 
-                <label for="percentage">Percentage from Each Conversion:</label>
-                <input type="number" step="0.01" name="percentage" required>
+                <label for="percentage">Percentage I Get from Each of Their Conversions:</label>
+                <input type="number" name="percentage" required>
 
-                <label for="monthly-amount">Monthly Dollar Amount from Recruits:</label>
-                <input type="number" step="0.01" name="monthly-amount" required>
+                <label for="monthly-amount">Monthly Dollar Amount from Their Recruits:</label>
+                <input type="number" name="monthly-amount" required>
+
+                <button type="button" onclick="addRecruit()">Add Recruit</button>
             </form>
-            <button onclick="addRecruit()">Add Recruit</button>
-            <div id="recruitment-list">
-                <h3>Recruitment List</h3>
-                <ul id="recruits-list">
-                    <!-- Recruits will populate here -->
-                </ul>
-            </div>
+            <h3>Recruitment List</h3>
+            <ul id="recruits-list">
+                <!-- Recruits will populate here -->
+            </ul>
             <div id="recruitment-total">
                 Total Recruitment Earnings per Month: $<span id="total-recruitment-value">0</span>
             </div>
         </section>
     </div>
-    <script>
-        function addLead(network) {
-            const form = document.getElementById(network === 'outside' ? 'outside-network-form' : 'inside-network-form');
-            const name = form.querySelector('input[name="name"]').value;
-            const email = form.querySelector('input[name="email"]').value;
-            const phone = form.querySelector('input[name="phone"]').value;
-            const niche = form.querySelector('select[name="niche"]').value;
-            const appointmentSet = form.querySelector('select[name="appointment-set"]').value;
-
-            const lead = { name, email, phone, niche, appointmentSet };
-
-            if (appointmentSet === 'yes') {
-                addAppointment(lead);
-            } else if (appointmentSet === 'waiting') {
-                addWaitingLead(lead);
-            } else if (appointmentSet === 'no') {
-                addRejectedLead(lead);
-            }
-
-            // Reset form
-            form.reset();
-        }
-
-        function addWaitingLead(lead) {
-            const waitingList = document.getElementById('waiting-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${lead.name} (${lead.email}, ${lead.phone}, ${lead.niche})`;
-            waitingList.appendChild(listItem);
-        }
-
-        function addRejectedLead(lead) {
-            const rejectedList = document.getElementById('rejected-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${lead.name} (${lead.email}, ${lead.phone}, ${lead.niche})`;
-            rejectedList.appendChild(listItem);
-        }
-
-        function addAppointment(lead) {
-            const appointmentsList = document.getElementById('appointments-list');
-            const row = document.createElement('tr');
-
-            row.innerHTML = `
-                <td>${lead.name}</td>
-                <td><input type="date" name="date-set"></td>
-                <td><input type="date" name="date-call"></td>
-                <td>
-                    <select name="attended" onchange="updateSales(this, '${lead.name}')">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                </td>
-            `;
-
-            appointmentsList.appendChild(row);
-        }
-
-        function updateSales(selectElement, leadName) {
-            if (selectElement.value === 'yes') {
-                addSale(leadName);
-            }
-        }
-
-        function addSale(leadName) {
-            const salesList = document.getElementById('sales-list');
-            const row = document.createElement('tr');
-
-            row.innerHTML = `
-                <td>${leadName}</td>
-                <td>
-                    <select name="response" onchange="calculateTotal()">
-                        <option value="rejected">Rejected</option>
-                        <option value="accepted">Accepted</option>
-                    </select>
-                </td>
-                <td><input type="number" name="value" onchange="calculateTotal()"></td>
-            `;
-
-            salesList.appendChild(row);
-        }
-
-        function calculateTotal() {
-            let total = 0;
-            const salesList = document.getElementById('sales-list');
-            const rows = salesList.querySelectorAll('tr');
-
-            rows.forEach(row => {
-                const response = row.querySelector('select[name="response"]').value;
-                const value = parseFloat(row.querySelector('input[name="value"]').value) || 0;
-
-                if (response === 'accepted') {
-                    total += value;
-                }
-            });
-
-            document.getElementById('total-sales-value').innerText = total.toFixed(2);
-        }
-
-        function addRecruit() {
-            const form = document.getElementById('recruitment-form');
-            const firstName = form.querySelector('input[name="first-name"]').value;
-            const lastName = form.querySelector('input[name="last-name"]').value;
-            const phone = form.querySelector('input[name="phone"]').value;
-            const email = form.querySelector('input[name="email"]').value;
-            const dateAccepted = form.querySelector('input[name="date-accepted"]').value;
-            const tier = form.querySelector('input[name="tier"]').value;
-            const inboundOutbound = form.querySelector('select[name="inbound-outbound"]').value;
-            const niche = form.querySelector('select[name="niche"]').value;
-            const recruits = parseFloat(form.querySelector('input[name="recruits"]').value) || 0;
-            const percentage = parseFloat(form.querySelector('input[name="percentage"]').value) || 0;
-            const monthlyAmount = parseFloat(form.querySelector('input[name="monthly-amount"]').value) || 0;
-
-            // Calculate total earnings
-            const recruitEarnings = (percentage / 100) * monthlyAmount * recruits;
-
-            // Add to total earnings
-            let totalRecruitmentValue = parseFloat(document.getElementById('total-recruitment-value').innerText) || 0;
-            totalRecruitmentValue += recruitEarnings;
-            document.getElementById('total-recruitment-value').innerText = totalRecruitmentValue.toFixed(2);
-
-            // Add to recruitment list
-            const recruitsList = document.getElementById('recruits-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${firstName} ${lastName} (${email}, ${phone}, ${dateAccepted}, ${tier}, ${inboundOutbound}, ${niche}, ${recruits}, ${percentage}%, $${monthlyAmount}/month)`;
-            recruitsList.appendChild(listItem);
-
-            // Reset form
-            form.reset();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
