@@ -29,24 +29,29 @@ form {
 
 form label {
     margin: 5px 0;
-    color: #00796b;
 }
 
-form input, form select, form button {
-    padding: 8px;
+form input, form select {
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
-form button {
+button {
+    align-self: center;
+    padding: 10px 20px;
+    margin: 10px;
     background-color: #00796b;
     color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-form button:hover {
+button:hover {
     background-color: #004d40;
 }
 
@@ -56,33 +61,40 @@ table {
     margin-bottom: 20px;
 }
 
-table th, table td {
+table, th, td {
     border: 1px solid #ccc;
+}
+
+th, td {
     padding: 10px;
     text-align: left;
 }
 
-table th {
+thead {
     background-color: #00796b;
     color: #fff;
 }
 
-ul {
+tbody tr:nth-child(even) {
+    background-color: #f0f4f5;
+}
+
+#total-sales, #recruitment-total {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #00796b;
+}
+
+#waiting-list, #rejected-list, #recruits-list {
     list-style-type: none;
     padding: 0;
 }
 
-ul li {
-    padding: 8px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    margin-bottom: 5px;
+#waiting-list li, #rejected-list li, #recruits-list li {
+    padding: 10px;
+    background-color: #e0f2f1;
+    border: 1px solid #00796b;
     border-radius: 4px;
-}
-
-#total-sales, #recruitment-total {
-    font-weight: bold;
-    color: #00796b;
-    text-align: right;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
