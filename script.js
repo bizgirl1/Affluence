@@ -148,11 +148,11 @@ function addRecruit() {
     const tier = form.querySelector('input[name="tier"]').value;
     const inboundOutbound = form.querySelector('select[name="inbound-outbound"]').value;
     const niche = form.querySelector('select[name="niche"]').value;
-    const recruitsCount = parseInt(form.querySelector('input[name="recruits"]').value);
+    const recruits = parseInt(form.querySelector('input[name="recruits"]').value);
     const percentage = parseFloat(form.querySelector('input[name="percentage"]').value);
     const monthlyAmount = parseFloat(form.querySelector('input[name="monthly-amount"]').value);
 
-    const recruit = { firstName, lastName, phone, email, dateAccepted, tier, inboundOutbound, niche, recruitsCount, percentage, monthlyAmount };
+    const recruit = { firstName, lastName, phone, email, dateAccepted, tier, inboundOutbound, niche, recruits, percentage, monthlyAmount };
     recruits.push(recruit);
     updateRecruits();
     form.reset();
@@ -165,9 +165,9 @@ function updateRecruits() {
     let totalRecruitmentValue = 0;
     recruits.forEach((recruit, index) => {
         const li = document.createElement('li');
-        li.textContent = `${recruit.firstName} ${recruit.lastName} - ${recruit.phone} - ${recruit.email} - ${recruit.niche} - ${recruit.recruitsCount} recruits - ${recruit.percentage}% - $${recruit.monthlyAmount}`;
+        li.textContent = `${recruit.firstName} ${recruit.lastName} - ${recruit.phone} - ${recruit.email} - ${recruit.niche} - ${recruit.recruits} recruits - ${recruit.percentage}% - $${recruit.monthlyAmount}`;
         recruitsList.appendChild(li);
-        totalRecruitmentValue += recruit.recruitsCount * recruit.percentage / 100 * recruit.monthlyAmount;
+        totalRecruitmentValue += recruit.recruits * recruit.percentage / 100 * recruit.monthlyAmount;
     });
     document.getElementById('total-recruitment-value').textContent = totalRecruitmentValue.toFixed(2);
 }
