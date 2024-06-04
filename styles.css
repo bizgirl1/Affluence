@@ -27,27 +27,26 @@ form {
     margin-bottom: 20px;
 }
 
-label {
+form label {
     margin: 5px 0;
     color: #00796b;
 }
 
-input, select, button {
+form input, form select, form button {
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
 }
 
-button {
+form button {
     background-color: #00796b;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
-button:hover {
+form button:hover {
     background-color: #004d40;
 }
 
@@ -57,13 +56,13 @@ table {
     margin-bottom: 20px;
 }
 
-th, td {
+table th, table td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
-th {
+table th {
     background-color: #00796b;
     color: #fff;
 }
