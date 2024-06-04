@@ -145,6 +145,18 @@
                 </form>
                 <button onclick="addLead('inside')">Add Lead</button>
             </div>
+            <div id="waiting-leads">
+                <h3>Waiting Leads</h3>
+                <ul id="waiting-list">
+                    <!-- Waiting leads will populate here -->
+                </ul>
+            </div>
+            <div id="rejected-leads">
+                <h3>Rejected Leads</h3>
+                <ul id="rejected-list">
+                    <!-- Rejected leads will populate here -->
+                </ul>
+            </div>
         </section>
         <section id="appointments">
             <h2>Appointments</h2>
@@ -230,32 +242,59 @@
 
                 <label for="percentage">Percentage from Each Conversion:</label>
                 <input type="number" step="0.01" name="percentage" required>
+
+                <label for="monthly-amount">Monthly Dollar Amount from Recruits:</label>
+                <input type="number" step="0.01" name="monthly-amount" required>
             </form>
             <button onclick="addRecruit()">Add Recruit</button>
+            <div id="recruitment-list">
+                <h3>Recruitment List</h3>
+                <ul id="recruits-list">
+                    <!-- Recruits will populate here -->
+                </ul>
+            </div>
             <div id="recruitment-total">
-                Total Earnings from Recruits per Month: $<span id="total-recruitment-value">0</span>
+                Total Recruitment Earnings per Month: $<span id="total-recruitment-value">0</span>
             </div>
         </section>
     </div>
     <script>
-        // Function to add a lead
-        function addLead(networkType) {
-            const form = document.getElementById(networkType + '-network-form');
+        function addLead(network) {
+            const form = document.getElementById(network === 'outside' ? 'outside-network-form' : 'inside-network-form');
             const name = form.querySelector('input[name="name"]').value;
             const email = form.querySelector('input[name="email"]').value;
             const phone = form.querySelector('input[name="phone"]').value;
             const niche = form.querySelector('select[name="niche"]').value;
             const appointmentSet = form.querySelector('select[name="appointment-set"]').value;
 
+            const lead = { name, email, phone, niche, appointmentSet };
+
             if (appointmentSet === 'yes') {
-                addAppointment({ name, email, phone, niche });
+                addAppointment(lead);
+            } else if (appointmentSet === 'waiting') {
+                addWaitingLead(lead);
+            } else if (appointmentSet === 'no') {
+                addRejectedLead(lead);
             }
 
             // Reset form
             form.reset();
         }
 
-        // Function to add an appointment
+        function addWaitingLead(lead) {
+            const waitingList = document.getElementById('waiting-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${lead.name} (${lead.email}, ${lead.phone}, ${lead.niche})`;
+            waitingList.appendChild(listItem);
+        }
+
+        function addRejectedLead(lead) {
+            const rejectedList = document.getElementById('rejected-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${lead.name} (${lead.email}, ${lead.phone}, ${lead.niche})`;
+            rejectedList.appendChild(listItem);
+        }
+
         function addAppointment(lead) {
             const appointmentsList = document.getElementById('appointments-list');
             const row = document.createElement('tr');
@@ -275,14 +314,12 @@
             appointmentsList.appendChild(row);
         }
 
-        // Function to update sales
         function updateSales(selectElement, leadName) {
             if (selectElement.value === 'yes') {
                 addSale(leadName);
             }
         }
 
-        // Function to add a sale
         function addSale(leadName) {
             const salesList = document.getElementById('sales-list');
             const row = document.createElement('tr');
@@ -301,7 +338,6 @@
             salesList.appendChild(row);
         }
 
-        // Function to calculate total sales value
         function calculateTotal() {
             let total = 0;
             const salesList = document.getElementById('sales-list');
@@ -319,7 +355,6 @@
             document.getElementById('total-sales-value').innerText = total.toFixed(2);
         }
 
-        // Function to add a recruit
         function addRecruit() {
             const form = document.getElementById('recruitment-form');
             const firstName = form.querySelector('input[name="first-name"]').value;
@@ -332,14 +367,21 @@
             const niche = form.querySelector('select[name="niche"]').value;
             const recruits = parseFloat(form.querySelector('input[name="recruits"]').value) || 0;
             const percentage = parseFloat(form.querySelector('input[name="percentage"]').value) || 0;
+            const monthlyAmount = parseFloat(form.querySelector('input[name="monthly-amount"]').value) || 0;
 
             // Calculate total earnings
-            const recruitEarnings = (percentage / 100) * recruits;
+            const recruitEarnings = (percentage / 100) * monthlyAmount * recruits;
 
             // Add to total earnings
             let totalRecruitmentValue = parseFloat(document.getElementById('total-recruitment-value').innerText) || 0;
             totalRecruitmentValue += recruitEarnings;
             document.getElementById('total-recruitment-value').innerText = totalRecruitmentValue.toFixed(2);
+
+            // Add to recruitment list
+            const recruitsList = document.getElementById('recruits-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${firstName} ${lastName} (${email}, ${phone}, ${dateAccepted}, ${tier}, ${inboundOutbound}, ${niche}, ${recruits}, ${percentage}%, $${monthlyAmount}/month)`;
+            recruitsList.appendChild(listItem);
 
             // Reset form
             form.reset();
