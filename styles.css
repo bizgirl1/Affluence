@@ -1,15 +1,24 @@
-/* styles.css */
+/* General styles */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f4f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3 {
     text-align: center;
+    color: #00796b;
 }
 
 #crm {
     max-width: 800px;
     margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 form {
@@ -23,15 +32,27 @@ form label {
 }
 
 form input, form select {
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 button {
     align-self: center;
     padding: 10px 20px;
     margin: 10px;
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #004d40;
 }
 
 table {
@@ -49,8 +70,31 @@ th, td {
     text-align: left;
 }
 
+thead {
+    background-color: #00796b;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f0f4f5;
+}
+
 #total-sales, #recruitment-total {
     text-align: center;
     font-weight: bold;
     margin-top: 20px;
+    color: #00796b;
+}
+
+#waiting-list, #rejected-list, #recruits-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#waiting-list li, #rejected-list li, #recruits-list li {
+    padding: 10px;
+    background-color: #e0f2f1;
+    border: 1px solid #00796b;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
